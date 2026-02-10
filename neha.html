@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Valentine Game ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== BACKGROUND SLIDESHOW ===== */
+.slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: fade 15s infinite;
+}
+
+.slide:nth-child(1) { background-image: url('bg1.jpeg'); animation-delay: 0s; }
+.slide:nth-child(2) { background-image: url('bg2.jpeg'); animation-delay: 5s; }
+.slide:nth-child(3) { background-image: url('bg3.jpeg'); animation-delay: 10s; }
+.slide:nth-child(4) { background-image: url('bg4.jpeg'); animation-delay: 15s; }
+.slide:nth-child(5) { background-image: url('bg5.jpeg'); animation-delay: 20s; }
+
+
+
+@keyframes fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    33% { opacity: 1; }
+    43% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    color: white;
+    max-width: 520px;
+    z-index: 2;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+}
+
+button {
+    padding: 10px 18px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.yes { background: #28a745; color: white; }
+.no { background: #dc3545; color: white; }
+
+.hidden { display: none; }
+
+#hugCounter {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.heart {
+    position: absolute;
+    color: pink;
+    font-size: 22px;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="slideshow">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+</div>
+
+<div class="overlay"></div>
+
+<div class="card">
+
+<h1>Hey <span id="name">PARTNER_NAME</span> 💖</h1>
+
+<div id="q1">
+    Do you think I’m super cute? 😌  
+    <br>
+    <button class="yes" onclick="cuteReply()">Obviously YES</button>
+    <button class="no" onclick="wrongAnswer()">Maybe 😏</button>
+</div>
+
+<div id="q2" class="hidden">
+    Do you love unlimited hugs from me? 🤗  
+    <br>
+    <button class="yes" onclick="addHug()">YESSS</button>
+    <button class="no" onclick="forceHug()">Nope</button>
+
+    <div id="hugCounter">Hugs collected: 0</div>
+    <button onclick="next(3)">Next Question</button>
+</div>
+
+<div id="q3" class="hidden">
+    Am I the best girlfriend you could ever ask for? 😉  
+    <br>
+    <button class="yes" onclick="bestGF()">Absolutely YES</button>
+    <button class="no" onclick="wrongGF()">Hmm maybe 😅</button>
+</div>
+
+<div id="q4" class="hidden">
+    Who is luckier in this relationship? 😄  
+    <br>
+    <button class="yes" onclick="meLucky()">You</button>
+    <button class="yes" onclick="youLucky()">Me</button>
+</div>
+
+<div id="q5" class="hidden">
+    Be honest – who annoys who more? 😆  
+    <br>
+    <button class="yes" onclick="next(6)">Definitely You</button>
+    <button class="yes" onclick="next(6)">Okay Maybe Me</button>
+</div>
+
+<div id="q6" class="hidden">
+    Final boss question...
+    <br><br>
+    WILL YOU BE MY VALENTINE? ❤️  
+    <br>
+    <button class="yes" onclick="final()">YESSS 😍</button>
+    <button id="noBtn" class="no" onmouseover="dodgeNo()">NO 😢</button>
+</div>
+
+<div id="final" class="hidden">
+
+CONGRATULATIONS! 🎉 <br><br>
+
+YES detected! System locked – you are now officially my permanent Valentine 😄 <br><br>
+
+You have successfully signed up for: <br>
+– unlimited hugs 🤗 <br>
+– random kisses 😘 <br>
+– silly fights 😜 <br>
+– endless love ❤️ <br>
+– and lifetime partnership with me 💍 <br><br>
+
+No refunds allowed, no returns accepted – only happiness ahead! <br>
+Happy Valentine’s Day, My Love! 💖  
+<span id="name2">PARTNER_NAME</span> 💖
+
+</div>
+
+</div>
+
+<audio id="song" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+var partner = "Preet";
+document.getElementById("name").innerText = partner;
+document.getElementById("name2").innerText = partner;
+
+let hugs = 0;
+let dodgeCount = 0;
+
+function dodgeNo() {
+
+    dodgeCount++;
+
+    var btn = document.getElementById("noBtn");
+
+    btn.style.position = "absolute";
+    btn.style.left = Math.random()*80 + "%";
+    btn.style.top = Math.random()*80 + "%";
+
+    let messages = [
+        "Nice Try 😜",
+        "Nope! 😏",
+        "You can’t say NO 😆",
+        "Try clicking YES 😉",
+        "Not happening 😂",
+        "YES is easier 😌",
+        "Stop chasing me 😝",
+        "Just say YES already!"
+    ];
+
+    btn.innerText = messages[dodgeCount % messages.length];
+
+}
+
+function cuteReply() {
+    alert("Correct answer! You have amazing taste 😎");
+    next(2);
+}
+
+function wrongAnswer() {
+    alert("Wrong choice! Try again until you select YES 😂");
+}
+
+function addHug() {
+    hugs++;
+    document.getElementById("hugCounter").innerText =
+        "Hugs collected: " + hugs;
+}
+
+function forceHug() {
+    alert("Too late! You’re getting hugs anyway 🤗");
+    addHug();
+}
+
+function bestGF() {
+    alert("Awww correct answer! You just earned extra love points ❤️");
+    next(4);
+}
+
+function wrongGF() {
+    alert("Careful with that answer 😏 Try again!");
+}
+
+function meLucky() {
+    alert("Aww you’re right – I AM lucky to have you ❤️");
+    next(5);
+}
+
+function youLucky() {
+    alert("True! You’re the lucky one here 😜");
+    next(5);
+}
+
+function next(n) {
+    for(let i=1;i<=6;i++){
+        let q = document.getElementById("q"+i);
+        if(q) q.classList.add("hidden");
+    }
+    document.getElementById("q"+n).classList.remove("hidden");
+}
+
+function final() {
+
+    document.getElementById("q6").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+
+    setTimeout(() => {
+        let music = document.getElementById("song");
+        music.play().catch(err => console.log("Audio blocked:", err));
+    }, 1000);
+
+    setInterval(() => {
+        let h = document.createElement("div");
+        h.classList.add("heart");
+        h.innerHTML = "❤️";
+        h.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),5000);
+    },300);
+}
+
+</script>
+
+</body>
+</html>

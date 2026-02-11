@@ -9,7 +9,7 @@
 
 <style>
 
-/* Background slideshow */
+/* ===== BACKGROUND SLIDESHOW ===== */
 .slideshow {
     position: fixed;
     width: 100%;
@@ -32,8 +32,8 @@
 .slide:nth-child(1) { background-image: url('bg1.jpeg'); animation-delay: 0s; }
 .slide:nth-child(2) { background-image: url('bg2.jpeg'); animation-delay: 5s; }
 .slide:nth-child(3) { background-image: url('bg3.jpeg'); animation-delay: 10s; }
-.slide:nth-child(4) { background-image: url('bg4.jpeg'); animation-delay: 15s; }
-.slide:nth-child(5) { background-image: url('bg5.jpeg'); animation-delay: 20s; }
+.slide:nth-child(3) { background-image: url('bg4.jpeg'); animation-delay: 10s; }
+.slide:nth-child(3) { background-image: url('bg5.jpeg'); animation-delay: 10s; }
 
 
 @keyframes fade {
@@ -95,7 +95,7 @@ button {
 
 .hidden { display: none; }
 
-/* Modal popup instead of alerts */
+/* Popup modal */
 .modal {
     display: none;
     position: fixed;
@@ -120,6 +120,11 @@ button {
     margin-top: 10px;
     background: #ff4d6d;
     color: white;
+}
+
+#hugCounter {
+    margin-top: 10px;
+    font-size: 18px;
 }
 
 .heart {
@@ -150,7 +155,7 @@ button {
 
 <div class="card">
 
-<!-- START SCREEN -->
+<!-- WELCOME SCREEN -->
 <div id="startScreen">
     <h1>Hii <span id="name">PARTNER_NAME</span> 😊</h1>
 
@@ -163,7 +168,7 @@ button {
     <button class="yes" onclick="startGame()">Start Our Little Game</button>
 </div>
 
-<!-- QUESTIONS START HERE -->
+<!-- GAME QUESTIONS -->
 <div id="game" class="hidden">
 
 <div id="q1">
@@ -174,21 +179,33 @@ button {
     <button class="no" onclick="showPopup('Wrong choice! Try again 😂',1)">Maybe 😏</button>
 </div>
 
+<!-- HUG QUESTION (RESTORED) -->
 <div id="q2" class="hidden">
-    Am I the best girlfriend you could ever ask for? 😉  
+    Do you love unlimited hugs from me? 🤗  
     <br>
-    <button class="yes" onclick="showPopup('Awww right answer! Extra love points earned ❤️',3)">Absolutely YES</button>
-    <button class="no" onclick="showPopup('Careful with that answer mister 😏',2)">Hmm maybe</button>
+    <button class="yes" onclick="addHug()">YESSS</button>
+    <button class="no" onclick="forceHug()">Nope</button>
+
+    <div id="hugCounter">Hugs collected: 0</div>
+    <br>
+    <button class="yes" onclick="goNext(3)">Next Question</button>
 </div>
 
 <div id="q3" class="hidden">
-    Who is luckier in this relationship? 😄  
+    Am I the best girlfriend you could ever ask for? 😉  
     <br>
-    <button class="yes" onclick="showPopup('Aww you’re right – I AM lucky to have you ❤️',4)">You</button>
-    <button class="yes" onclick="showPopup('True! You are lucky to have me 😜',4)">Me</button>
+    <button class="yes" onclick="showPopup('Awww right answer! Extra love points earned ❤️',4)">Absolutely YES</button>
+    <button class="no" onclick="showPopup('Careful with that answer mister 😏',3)">Hmm maybe</button>
 </div>
 
 <div id="q4" class="hidden">
+    Who is luckier in this relationship? 😄  
+    <br>
+    <button class="yes" onclick="showPopup('Aww you’re right – I AM lucky to have you ❤️',5)">You</button>
+    <button class="yes" onclick="showPopup('True! You are lucky to have me 😜',5)">Me</button>
+</div>
+
+<div id="q5" class="hidden">
     Final boss question...
     <br><br>
     WILL YOU BE MY VALENTINE? ❤️  
@@ -199,6 +216,7 @@ button {
 
 </div>
 
+<!-- FINAL MESSAGE -->
 <div id="final" class="hidden">
 
 CONGRATULATIONS! 🎉 <br><br>
@@ -220,7 +238,7 @@ Happy Valentine’s Day,
 
 </div>
 
-<!-- Custom Popup Modal -->
+<!-- POPUP MODAL -->
 <div id="popup" class="modal">
   <div class="modal-content">
       <div id="popupText"></div>
@@ -238,11 +256,23 @@ var partner = "Preet";
 document.getElementById("name").innerText = partner;
 document.getElementById("name2").innerText = partner;
 
+let hugs = 0;
 let dodgeCount = 0;
 
 function startGame() {
     document.getElementById("startScreen").classList.add("hidden");
     document.getElementById("game").classList.remove("hidden");
+}
+
+function addHug() {
+    hugs++;
+    document.getElementById("hugCounter").innerText =
+        "Hugs collected: " + hugs;
+}
+
+function forceHug() {
+    showPopup("Too late! You’re getting hugs anyway 🤗", 2);
+    addHug();
 }
 
 function showPopup(message, nextQuestion) {
@@ -257,7 +287,7 @@ function closePopup() {
 }
 
 function goNext(n) {
-    for(let i=1;i<=4;i++){
+    for(let i=1;i<=5;i++){
         let q = document.getElementById("q"+i);
         if(q) q.classList.add("hidden");
     }
@@ -312,4 +342,3 @@ function final() {
 
 </body>
 </html>
-

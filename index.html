@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -307,4 +307,323 @@ function final() {
 </script>
 
 </body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+/* Background slideshow */
+.slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: fade 15s infinite;
+}
+
+.slide:nth-child(1) { background-image: url('bg1.jpeg'); animation-delay: 0s; }
+.slide:nth-child(2) { background-image: url('bg2.jpeg'); animation-delay: 5s; }
+.slide:nth-child(3) { background-image: url('bg3.jpeg'); animation-delay: 10s; }
+.slide:nth-child(4) { background-image: url('bg4.jpeg'); animation-delay: 15s; }
+.slide:nth-child(5) { background-image: url('bg5.jpeg'); animation-delay: 20s; }
+
+
+@keyframes fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    33% { opacity: 1; }
+    43% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    color: white;
+    max-width: 520px;
+    z-index: 2;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 38px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 18px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.yes { background: #28a745; color: white; }
+.no { background: #dc3545; color: white; }
+
+.hidden { display: none; }
+
+/* Modal popup instead of alerts */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 350px;
+    font-size: 18px;
+}
+
+.close-btn {
+    margin-top: 10px;
+    background: #ff4d6d;
+    color: white;
+}
+
+.heart {
+    position: absolute;
+    color: pink;
+    font-size: 22px;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="slideshow">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+</div>
+
+<div class="overlay"></div>
+
+<div class="card">
+
+<!-- START SCREEN -->
+<div id="startScreen">
+    <h1>Hii <span id="name">PARTNER_NAME</span> 😊</h1>
+
+    <p>
+    I made something special just for you... 💖  
+    Before we reach the big question,  
+    let’s have a little fun together!
+    </p>
+
+    <button class="yes" onclick="startGame()">Start Our Little Game</button>
+</div>
+
+<!-- QUESTIONS START HERE -->
+<div id="game" class="hidden">
+
+<div id="q1">
+    First tell me... <br>
+    Do you think I’m super cute? 😌  
+    <br>
+    <button class="yes" onclick="showPopup('Correct answer! You have amazing taste 😎',2)">Obviously YES</button>
+    <button class="no" onclick="showPopup('Wrong choice! Try again 😂',1)">Maybe 😏</button>
+</div>
+
+<div id="q2" class="hidden">
+    Am I the best girlfriend you could ever ask for? 😉  
+    <br>
+    <button class="yes" onclick="showPopup('Awww right answer! Extra love points earned ❤️',3)">Absolutely YES</button>
+    <button class="no" onclick="showPopup('Careful with that answer mister 😏',2)">Hmm maybe</button>
+</div>
+
+<div id="q3" class="hidden">
+    Who is luckier in this relationship? 😄  
+    <br>
+    <button class="yes" onclick="showPopup('Aww you’re right – I AM lucky to have you ❤️',4)">You</button>
+    <button class="yes" onclick="showPopup('True! You are lucky to have me 😜',4)">Me</button>
+</div>
+
+<div id="q4" class="hidden">
+    Final boss question...
+    <br><br>
+    WILL YOU BE MY VALENTINE? ❤️  
+    <br>
+    <button class="yes" onclick="final()">YESSS 😍</button>
+    <button id="noBtn" class="no" onmouseover="dodgeNo()">NO 😢</button>
+</div>
+
+</div>
+
+<div id="final" class="hidden">
+
+CONGRATULATIONS! 🎉 <br><br>
+
+YES detected! System locked – you are now officially my permanent Valentine 😄 <br><br>
+
+You have successfully signed up for: <br>
+– unlimited hugs 🤗 <br>
+– random kisses 😘 <br>
+– silly fights 😜 <br>
+– endless love ❤️ <br>
+– and lifetime partnership with me 💍 <br><br>
+
+No refunds allowed – only happiness ahead! <br>
+Happy Valentine’s Day,  
+<span id="name2">PARTNER_NAME</span> 💖
+
+</div>
+
+</div>
+
+<!-- Custom Popup Modal -->
+<div id="popup" class="modal">
+  <div class="modal-content">
+      <div id="popupText"></div>
+      <button class="close-btn" onclick="closePopup()">Okay 💕</button>
+  </div>
+</div>
+
+<audio id="song" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+var partner = "Preet";
+document.getElementById("name").innerText = partner;
+document.getElementById("name2").innerText = partner;
+
+let dodgeCount = 0;
+
+function startGame() {
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
+}
+
+function showPopup(message, nextQuestion) {
+    document.getElementById("popupText").innerText = message;
+    document.getElementById("popup").style.display = "flex";
+    window.nextQ = nextQuestion;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    if(window.nextQ) goNext(window.nextQ);
+}
+
+function goNext(n) {
+    for(let i=1;i<=4;i++){
+        let q = document.getElementById("q"+i);
+        if(q) q.classList.add("hidden");
+    }
+    document.getElementById("q"+n).classList.remove("hidden");
+}
+
+function dodgeNo() {
+
+    dodgeCount++;
+
+    var btn = document.getElementById("noBtn");
+
+    btn.style.position = "absolute";
+    btn.style.left = Math.random()*80 + "%";
+    btn.style.top = Math.random()*80 + "%";
+
+    let messages = [
+        "Nice Try 😜",
+        "Nope! 😏",
+        "You can’t say NO 😆",
+        "Try clicking YES 😉",
+        "Not happening 😂",
+        "YES is easier 😌",
+        "Stop chasing me 😝",
+        "Just say YES already!"
+    ];
+
+    btn.innerText = messages[dodgeCount % messages.length];
+}
+
+function final() {
+
+    document.getElementById("game").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+
+    setTimeout(() => {
+        document.getElementById("song").play();
+    }, 1000);
+
+    setInterval(() => {
+        let h = document.createElement("div");
+        h.classList.add("heart");
+        h.innerHTML = "❤️";
+        h.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(h);
+
+        setTimeout(()=>h.remove(),5000);
+    },300);
+}
+
+</script>
+
+</body>
 </html>
+
